@@ -23,5 +23,6 @@
     + [link1](https://stackoverflow.com/questions/46795246/what-is-the-meaning-of-prototype-in-perl#:~:text=2-,Looking%20at,-your%20previous%20question)
 
 + [Perl regular expressions quick start](https://perldoc.perl.org/perlrequick)
-
+    + [search and replace](https://perldoc.perl.org/perlrequick#Search-and-replace)
+    + [```$&```](https://perldoc.perl.org/variables/$&)
 + [Perl regular expressions](https://perldoc.perl.org/perlre)

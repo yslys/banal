@@ -1,5 +1,41 @@
 # banal
 
+### Files in this repo
+banal: the original file
+
+banal_annotated: the file we could modify and test.
+
+output.txt: the generated output after uncommenting one print statement (i.e. print ```$content``` variable in each iteration) in ```parse_p2h_text( $$$ )```.
+
+### Usage
+Basic usage:
+```
+./banal_annotated ./sim_paper_aslpos.pdf
+```
+
+For printing the help:
+```
+./banal_annotated
+```
+
+### Goal
+We want to add a new flag to it, say ```-count_words```, to print out the word count.
+
+In the parse_p2h_text function, the text of a PDF is put into the $content variable, so the task is to 
+- (1) figure out how to reliably count the words from here and ignore extraneous things, and 
+- (2) figure out how to skip the bibliography - such as skipping lines after the word “Refernces” or “Bibliography”
+
+
+### Some thoughts
+Based on the generated output, ```$content``` does not represent each line, instead, it could represent even a single character in a line (pay attention to ```0``` in 0sim).
+
+There are some words locate at the end of the current line, and the beginning of the next line, which is not captured in one single ```$content``` variable. For instance, search for ```exam-```.
+
+To be continued...
+
+
+### Useful Links
+
 + [```my``` keyword](https://www.geeksforgeeks.org/perl-my-keyword/)
 
 + [```my``` followed by parenthesis](https://stackoverflow.com/questions/10031455/using-my-with-parentheses-and-only-one-variable)

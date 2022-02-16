@@ -127,6 +127,7 @@ sub in2pdf ($) {
     return $_[0] * 720;
 }
 
+# return current passed-in param divided by 10
 sub pdf2pt ($) {
     return $_[0] / 10;
 }
@@ -1318,6 +1319,7 @@ sub parse_p2h_text ($$$) {
             $lowest_number = max $lowest_number, $bottom;
         }
         # print STDERR $page->{num}, " ", int(pdf2pt($left)), " ", $top, " ", $content, "\n";
+        # print: page#, $left/10, $top, $content
         print ($page->{num}, " ", int(pdf2pt($left)), " ", $top, " ", $content, "\n");
         $line = <$FILE>;
     }

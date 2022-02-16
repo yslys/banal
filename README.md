@@ -1,11 +1,15 @@
 # banal
 
 ### Files in this repo
-banal: the original file
+banal: the original file.
 
 banal_annotated: the file we could modify and test.
 
+sim_paper_asplos.pdf: the pdf we use for testing.
+
 output.txt: the generated output after uncommenting one print statement (i.e. print ```$content``` variable in each iteration) in ```parse_p2h_text( $$$ )```.
+
+README.md: current file XD.
 
 ### Usage
 Basic usage:

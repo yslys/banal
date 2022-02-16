@@ -35,6 +35,14 @@ Based on the generated output, ```$content``` does not represent each line, inst
 
 There are some words locate at the end of the current line, and the beginning of the next line, which is not captured in one single ```$content``` variable. For instance, search for ```exam-```.
 
+How to skip "References" or "Bibliography"?
+- The word References is captured in one ```$content``` variable.
+- It should start with a capital letter R, and no other words or symbols in the same ```$content``` variable. If there are more than two words, then it is less likely to be the beginning of the References section.
+- Another way to verify it is to check the "next" ```$content``` variable - if it starts with a reference format (e.g. starts with ```[1]```), then it is very likely to be the Reference section.
+
+
+I think we could declare a global variable ```$valid_wordcount``` and increment it in each iteration of ```$content```. For checking if we have correctly captured the correct words, we could print the words that captured and compare with the original ```$content```, which is a string separated by white spaces.
+
 To be continued...
 
 

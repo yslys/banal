@@ -1318,7 +1318,7 @@ sub parse_p2h_text ($$$) {
             $lowest_number = max $lowest_number, $bottom;
         }
         # print STDERR $page->{num}, " ", int(pdf2pt($left)), " ", $top, " ", $content, "\n";
-
+        print ($page->{num}, " ", int(pdf2pt($left)), " ", $top, " ", $content, "\n");
         $line = <$FILE>;
     }
 

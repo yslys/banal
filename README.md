@@ -12,7 +12,7 @@ output.txt: the generated output after uncommenting one print statement (i.e. pr
 README.md: current file XD.
 
 ### Usage
-Basic usage:
+Basic usage: (for now, it will print ```$content``` variable in each iteration as well, so the output is very long).
 ```
 ./banal_annotated ./sim_paper_aslpos.pdf
 ```

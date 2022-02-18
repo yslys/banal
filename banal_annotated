@@ -26,6 +26,9 @@
 # -- computer modern roman fonts
 # -- embedded java script, remoteapproach.com
 
+use CAM::PDF;
+use CAM::PDF::PageText;
+
 use POSIX;
 use Data::Dumper;
 use File::Basename;
@@ -1248,6 +1251,12 @@ sub parse_p2h_text ($$$) {
     my (@texts, %alens, %tlens);
     my ($lowest_number) = 0;
 
+    # while (1) {
+    #     print ("$line\n");
+    #     $line = <$FILE>;
+    # }
+    # return;
+
     while (1) {
 #       next if (check_p2h_error ($line));
 
@@ -1319,8 +1328,10 @@ sub parse_p2h_text ($$$) {
             $lowest_number = max $lowest_number, $bottom;
         }
         # print STDERR $page->{num}, " ", int(pdf2pt($left)), " ", $top, " ", $content, "\n";
-        # print: page#, $left/10, $top, $content
-        print ($page->{num}, " ", int(pdf2pt($left)), " ", $top, " ", $content, "\n");
+        # my ($fontspec) = $page->{doc}->{fonts}->{$5};
+        # my ($font) = $fontspec->{id};
+        # my ($size) = $fontspec->{size};
+        print ($page->{num}, " ", int(pdf2pt($left)), " ", $top, " ", "fontspec: $fontspec, font: $font, size: $size . ", $content, "\n");
         $line = <$FILE>;
     }
 
@@ -1389,7 +1400,7 @@ sub parse_p2h_text ($$$) {
 }
 
 sub parse_p2h_page ($) {
-    my ($doc) = @_;
+    my ($doc) = @_; # $doc is a data structure for representing one PDF file
 
     # assume we've just read the header
     my ($line);
@@ -1402,6 +1413,10 @@ sub parse_p2h_page ($) {
         $line = <$FILE>;
     }
 
+    print ("start\n");
+    print ("$line");
+    print ("end\n");
+
     if ($line !~ /<page/ && $line =~ /<outline>/) {
         my($nout) = 0;
         while (1) {
@@ -1413,6 +1428,8 @@ sub parse_p2h_page ($) {
         $line = <$FILE> if $line =~ /<\/outline>\s*$/;
     }
 
+    # if the condition evaluates to false, then execute the following;
+    # else (evals to true), then skip.
     unless ($line =~ /<page number=\"(\d+)\" position=\"([A-Za-z0-9]+\") top=\"(\d+)\" left=\"(\d+)\" height=\"(\d+)\" width=\"(\d+)\"/) {
         return '' if ($line =~ /<\/pdf2xml/);
         print STDERR "$banal_filename: Error: \"<page ...\" node expected for page ", $doc->{npages} + 1, "\n";
@@ -1447,6 +1464,8 @@ sub parse_p2h_page ($) {
 
     # process text segments
     if ($line =~ /<(?:text|image)/) {
+        print ("line variable matches text | image!!: \n");
+        print ($line);
         parse_p2h_text ($doc, $line, $page);
     } elsif ($debug_parse) {
         print STDERR "$banal_filename: Curious, empty page $page->{num}, found:\n";
@@ -1485,8 +1504,25 @@ sub merge_page ($$) {
     }
 }
 
+# start processing one file (PDF)
 sub banal_file ($) {
-    my ($file) = @_;
+    my ($file) = @_; # $file is the path to PDF
+
+    # this is the beginning of the file, need to remove all embedded PDFs
+    # First try: open pdf using cam::pdf
+    # my $cam_pdf = CAM::PDF->new($file);
+    
+    # my $pageone_tree = $cam_pdf->getPageContentTree(11);
+    # my $tmp_text = CAM::PDF::PageText->render($pageone_tree);
+    # print ($tmp_text);
+    # for ($pagenum = 0; $pagenum < $cam_pdf->numPages(); $pagenum++) {
+    #     $cam_pdf->uninlineImages($pagenum);
+    #     print("removed embedded images on page $pagenum\n");
+    # }
+    # $cam_pdf->uninlineImages(1);
+
+    # my $removed_emb_pdf = $cam_pdf->
+
 
     # initialize doc data structure
     my ($doc) = {
